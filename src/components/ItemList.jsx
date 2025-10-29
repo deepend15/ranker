@@ -1,4 +1,13 @@
-export const initialSelections = {};
+export const initialItems = {
+//   Item1: {
+//     value: "Song Title 1",
+//     id: "Item1",
+//   },
+//   Item2: {
+//     value: "Song Title 2",
+//     id: "Item2",
+//   },
+};
 // const objects = Object.values(initialOptions);
 
 // function rank(list) {
@@ -27,4 +36,3 @@ export const initialSelections = {};
 //     }
 //   }
 // }
-

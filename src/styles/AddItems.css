@@ -1,11 +1,11 @@
-.add-selections-main-div {
+.add-items-main-div {
   width: 100%;
   display: grid;
   justify-items: center;
   gap: 25px;
 }
 
-.add-selections-main-div > p {
+h2 {
   font-size: 2rem;
 }
 
@@ -16,25 +16,43 @@
   justify-content: center;
 }
 
-.selection-div,
-.display-div {
+.new-item-div,
+.display-items-div {
   border: 1px solid black;
   padding: 15px 15px 20px 15px;
   flex-basis: 450px;
 }
 
-.selection-div {
+.new-item-div {
   display: grid;
   gap: 8px;
 }
 
-.selection-div input {
-  padding: 5px;
-  font-size: 1.6rem;
-  width: 250px;
+.new-item-input-div {
+  position: relative;
+  width: max-content;
 }
 
-.selection-div > button {
+.new-item-input-div > input {
+  padding: 6px 8px;
+  font-size: 1.7rem;
+  width: 250px;
+  flex-shrink: 0;
+}
+
+.new-item-input-div > span {
+  position: absolute;
+  color: red;
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  top: -25%;
+  left: 105%;
+  width: 60%;
+}
+
+.new-item-div > button {
   margin-top: 20px;
   justify-self: center;
   padding: 10px 25px;
@@ -46,12 +64,12 @@
   font-weight: 500;
 }
 
-.selection-div > button:hover {
+.new-item-div > button:hover {
   background-color: #95eab0;
   border-color: rgb(131, 213, 131);
   cursor: pointer;
 }
 
-.selection-div > button:active {
+.new-item-div > button:active {
   border-style: inset;
 }
