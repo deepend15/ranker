@@ -1,0 +1,58 @@
+.add-selections-main-div {
+  width: 100%;
+  display: grid;
+  justify-items: center;
+  gap: 25px;
+}
+
+.add-selections-main-div > p {
+  font-size: 2rem;
+}
+
+.add-and-view-div {
+  width: 100%;
+  display: flex;
+  /* grid-template-columns: 325px 325px; */
+  gap: 50px;
+  justify-content: center;
+}
+
+.selection-div,
+.display-div {
+  border: 1px solid black;
+  padding: 15px 15px 20px 15px;
+  flex-basis: 450px;
+}
+
+.selection-div {
+  display: grid;
+  gap: 8px;
+}
+
+.selection-div input {
+  padding: 5px;
+  font-size: 1.6rem;
+  width: 250px;
+}
+
+.selection-div > button {
+  margin-top: 20px;
+  justify-self: center;
+  padding: 10px 25px;
+  font-size: 1.6rem;
+  border-radius: 20px;
+  background-color: #cdf8da;
+  color: rgb(15, 69, 3);
+  border: 2px rgb(157, 230, 157) outset;
+  font-weight: 500;
+}
+
+.selection-div > button:hover {
+  background-color: #95eab0;
+  border-color: rgb(131, 213, 131);
+  cursor: pointer;
+}
+
+.selection-div > button:active {
+  border-style: inset;
+}

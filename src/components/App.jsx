@@ -1,12 +1,19 @@
-// import { useState } from 'react'
+import { useState } from "react";
 import "../styles/App.css";
-import AddOptions from "./AddOptions";
+import AddSelections from "./AddSelections";
 
 function App() {
+  const [appStatus, setAppStatus] = useState("add-selections");
+
   return (
     <>
       <h1>Ranker</h1>
-      <AddOptions />
+      {appStatus === "add-selections" && (
+        <>
+          <AddSelections />
+          <button className="rank-button">Rank my selections!</button>
+        </>
+      )}
     </>
   );
 }
