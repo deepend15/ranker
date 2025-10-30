@@ -33,3 +33,10 @@ button:focus-visible {
   border-color: transparent;
   outline: 2px solid green;
 }
+
+.not-enough-items-span {
+  color: red;
+  font-weight: 500;
+  /* font-size: 1.6rem; */
+  margin-top: -10px;
+}

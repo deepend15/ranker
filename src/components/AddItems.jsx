@@ -1,54 +1,14 @@
 import "../styles/AddItems.css";
-import { useState, useRef, useEffect } from "react";
-import { initialItems } from "./ItemList";
 
-export default function AddItems() {
-  const [newItemValue, setNewItemValue] = useState("");
-  const [items, setItems] = useState(initialItems);
+export default function AddItems({
+  items,
+  newItemValue,
+  inputRef,
+  itemInputValid,
+  handleChange,
+  handleClick,
+}) {
   const itemObjects = Object.values(items);
-  const inputRef = useRef(null);
-  const [itemInputValid, setItemInputValid] = useState(true);
-
-  function handleChange(e) {
-    if (!itemInputValid) setItemInputValid(true);
-    setNewItemValue(e.target.value);
-  }
-
-  function handleClick() {
-    if (newItemValue !== "") {
-      const newNumber = (itemObjects.length + 1).toString();
-      const newPropertyName = "item" + newNumber;
-      const newItems = {
-        ...items,
-        [newPropertyName]: {
-          value: newItemValue,
-          id: newPropertyName,
-        },
-      };
-      setItems(newItems);
-      setNewItemValue("");
-    } else {
-      setItemInputValid(false);
-      if (!itemInputValid && inputRef.current) {
-        inputRef.current.focus();
-      }
-    }
-  }
-
-  function windowClickHandler(e) {
-    if (!(e.target.id === "new-item" || e.target.className === "add-item-btn"))
-      setItemInputValid(true);
-  }
-
-  useEffect(() => {
-    if (!itemInputValid && inputRef.current) {
-      inputRef.current.focus();
-      window.addEventListener("click", windowClickHandler);
-    }
-    return () => {
-      window.removeEventListener("click", windowClickHandler);
-    };
-  }, [itemInputValid]);
 
   return (
     <div className="add-items-main-div">
