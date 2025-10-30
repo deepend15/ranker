@@ -9,23 +9,33 @@ h2 {
   font-size: 2rem;
 }
 
-.add-and-view-div {
+.left-and-right-side-div {
   width: 100%;
   display: flex;
   gap: 50px;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.left-side-div,
+.display-items-div {
+  flex-basis: 450px;
 }
 
 .new-item-div,
 .display-items-div {
   border: 1px solid black;
   padding: 15px 15px 20px 15px;
-  flex-basis: 450px;
 }
 
 .new-item-div {
+  align-self: flex-start;
   display: grid;
   gap: 8px;
+}
+
+.display-items-div {
+  min-height: 100%;
 }
 
 .new-item-input-div {
@@ -77,6 +87,25 @@ h2 {
 
 .add-item-btn:active {
   border-style: inset;
+}
+
+.rank-button-div {
+  margin-top: 45px;
+  display: grid;
+  justify-items: center;
+  position: relative;
+}
+
+.not-enough-items-span {
+  position: absolute;
+  color: red;
+  font-weight: 500;
+  bottom: 0%;
+  transform: translateY(calc(100% + 20px));
+}
+
+h3 {
+  margin-bottom: 12px;
 }
 
 @media (max-width: 950px) {

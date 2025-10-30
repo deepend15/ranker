@@ -71,16 +71,10 @@ function App() {
             inputRef={inputRef}
             itemInputValid={itemInputValid}
             handleChange={handleChange}
-            handleClick={handleAddItemClick}
+            handleAddItemClick={handleAddItemClick}
+            handleRankItemsClick={handleRankItemsClick}
+            numberOfItemsStatus={numberOfItemsStatus}
           />
-          <button className="rank-button" onClick={handleRankItemsClick}>
-            Rank my items!
-          </button>
-          {numberOfItemsStatus === "invalid" && (
-            <span className="not-enough-items-span">
-              Add 2 or more items to begin ranking!
-            </span>
-          )}
         </>
       )}
     </>
