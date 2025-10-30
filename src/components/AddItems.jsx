@@ -1,4 +1,5 @@
 import "../styles/AddItems.css";
+import { useRef, useEffect, useState } from "react";
 
 export default function AddItems({
   items,
@@ -11,6 +12,21 @@ export default function AddItems({
   numberOfItemsStatus,
 }) {
   const itemObjects = Object.values(items);
+  const dialogRef = useRef(null);
+  const [showDialog, setShowDialog] = useState(false);
+
+  useEffect(() => {
+    if (showDialog) dialogRef.current.showModal();
+    else dialogRef.current.close();
+  }, [showDialog]);
+
+  function handleSingleItemClick() {
+    setShowDialog(true);
+  }
+
+  function handleCloseDialogClick() {
+    setShowDialog(false);
+  }
 
   return (
     <div className="add-items-main-div">
@@ -48,23 +64,28 @@ export default function AddItems({
           </div>
         </div>
         <div className="display-items-div">
-          <h3>Item List:</h3>
-          <ul>
+          <h3>Item List (click to edit/delete):</h3>
+          <div className="item-btn-div">
             {itemObjects.length > 0 &&
               itemObjects.map((itemObject) => {
                 return (
-                  <li
-                    key={itemObject.id}
-                    className="single-item-div"
-                    data-custom-id={itemObject.id}
-                  >
-                    {itemObject.value}
-                  </li>
+                  <div key={itemObject.id} data-custom-id={itemObject.id}>
+                    <button
+                      className="single-item-btn"
+                      onClick={handleSingleItemClick}
+                    >
+                      {itemObject.value}
+                    </button>
+                  </div>
                 );
               })}
-          </ul>
+          </div>
         </div>
       </div>
+      <dialog id="edit-item-dialog" ref={dialogRef}>
+        <p>test</p>
+        <button onClick={handleCloseDialogClick}>Close Dialog</button>
+      </dialog>
     </div>
   );
 }

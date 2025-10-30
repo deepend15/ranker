@@ -2,34 +2,13 @@
   padding: 20px;
   display: grid;
   justify-items: center;
-  gap: 30px;
+  gap: 20px;
 }
 
 h1 {
   font-size: 2.4rem;
 }
 
-.rank-button {
-  padding: 15px 28px;
-  border-radius: 25px;
-  font-weight: 500;
-  background-color: bisque;
-  font-size: 1.9rem;
-  border: 2px outset rgb(218, 189, 189);
-  color: rgb(90, 31, 1);
-}
-
-.rank-button:hover {
-  cursor: pointer;
-  background-color: rgb(240, 198, 147);
-  border-color: rgb(182, 159, 159);
-}
-
-.rank-button:active {
-  border-style: inset;
-}
-
-button:focus-visible {
-  border-color: transparent;
-  outline: 2px solid green;
+body {
+  background-color: #faf6f1;
 }
