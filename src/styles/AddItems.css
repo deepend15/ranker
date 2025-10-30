@@ -37,7 +37,12 @@ h2 {
   padding: 6px 8px;
   font-size: 1.7rem;
   width: 250px;
-  flex-shrink: 0;
+}
+
+.new-item-input-div > input:focus-visible {
+  border-color: transparent;
+  outline: 2px solid green;
+  border-radius: 3px;
 }
 
 .new-item-input-div > span {
@@ -52,7 +57,7 @@ h2 {
   width: 60%;
 }
 
-.new-item-div > button {
+.add-item-btn {
   margin-top: 20px;
   justify-self: center;
   padding: 10px 25px;
@@ -64,12 +69,23 @@ h2 {
   font-weight: 500;
 }
 
-.new-item-div > button:hover {
+.add-item-btn:hover {
   background-color: #95eab0;
   border-color: rgb(131, 213, 131);
   cursor: pointer;
 }
 
-.new-item-div > button:active {
+.add-item-btn:active {
   border-style: inset;
+}
+
+@media (max-width: 950px) {
+  .new-item-div {
+    gap: 18px;
+  }
+  .new-item-input-div > span {
+    left: 0%;
+    top: 115%;
+    width: 100%;
+  }
 }

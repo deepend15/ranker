@@ -1,15 +1,16 @@
 import "../styles/AddItems.css";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { initialItems } from "./ItemList";
 
 export default function AddItems() {
   const [newItemValue, setNewItemValue] = useState("");
   const [items, setItems] = useState(initialItems);
   const itemObjects = Object.values(items);
-  const [itemInputValid, setItemInputValid] = useState("valid");
+  const inputRef = useRef(null);
+  const [itemInputValid, setItemInputValid] = useState(true);
 
   function handleChange(e) {
-    if (itemInputValid === "invalid") setItemInputValid("valid");
+    if (!itemInputValid) setItemInputValid(true);
     setNewItemValue(e.target.value);
   }
 
@@ -27,9 +28,27 @@ export default function AddItems() {
       setItems(newItems);
       setNewItemValue("");
     } else {
-      setItemInputValid("invalid");
+      setItemInputValid(false);
+      if (!itemInputValid && inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   }
+
+  function windowClickHandler(e) {
+    if (!(e.target.id === "new-item" || e.target.className === "add-item-btn"))
+      setItemInputValid(true);
+  }
+
+  useEffect(() => {
+    if (!itemInputValid && inputRef.current) {
+      inputRef.current.focus();
+      window.addEventListener("click", windowClickHandler);
+    }
+    return () => {
+      window.removeEventListener("click", windowClickHandler);
+    };
+  }, [itemInputValid]);
 
   return (
     <div className="add-items-main-div">
@@ -43,13 +62,16 @@ export default function AddItems() {
               id="new-item"
               name="new-item"
               value={newItemValue}
+              ref={inputRef}
               onChange={handleChange}
             />
-            {itemInputValid === "invalid" && (
+            {!itemInputValid && (
               <span>Oops! Type in your item here first!</span>
             )}
           </div>
-          <button onClick={handleClick}>+ Add Item</button>
+          <button className="add-item-btn" onClick={handleClick}>
+            + Add Item
+          </button>
         </div>
         <div className="display-items-div">
           <h3>Item List:</h3>

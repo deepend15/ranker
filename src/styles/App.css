@@ -28,3 +28,8 @@ h1 {
 .rank-button:active {
   border-style: inset;
 }
+
+button:focus-visible {
+  border-color: transparent;
+  outline: 2px solid green;
+}
