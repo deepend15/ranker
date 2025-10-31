@@ -1,33 +1,22 @@
 import "../styles/AddItems.css";
-import { useRef, useEffect, useState } from "react";
+import { EditItemDialog } from "./EditItemDialog";
 
 export default function AddItems({
-  items,
+  itemObjects,
   newItemValue,
   inputRef,
   itemInputValid,
-  handleChange,
+  handleNewItemChange,
   handleAddItemClick,
   handleRankItemsClick,
   numberOfItemsStatus,
+  handleSingleItemClick,
+  dialogRef,
+  handleCloseDialogClick,
+  selectedItem,
+  editItemValue,
+  handleEditItemChange,
 }) {
-  const itemObjects = Object.values(items);
-  const dialogRef = useRef(null);
-  const [showDialog, setShowDialog] = useState(false);
-
-  useEffect(() => {
-    if (showDialog) dialogRef.current.showModal();
-    else dialogRef.current.close();
-  }, [showDialog]);
-
-  function handleSingleItemClick() {
-    setShowDialog(true);
-  }
-
-  function handleCloseDialogClick() {
-    setShowDialog(false);
-  }
-
   return (
     <div className="add-items-main-div">
       <h2>Enter whatever items you wish to rank!</h2>
@@ -42,7 +31,7 @@ export default function AddItems({
                 name="new-item"
                 value={newItemValue}
                 ref={inputRef}
-                onChange={handleChange}
+                onChange={handleNewItemChange}
               />
               {!itemInputValid && (
                 <span>Oops! Type in your item here first!</span>
@@ -69,9 +58,10 @@ export default function AddItems({
             {itemObjects.length > 0 &&
               itemObjects.map((itemObject) => {
                 return (
-                  <div key={itemObject.id} data-custom-id={itemObject.id}>
+                  <div key={itemObject.id}>
                     <button
                       className="single-item-btn"
+                      data-custom-id={itemObject.id}
                       onClick={handleSingleItemClick}
                     >
                       {itemObject.value}
@@ -82,10 +72,13 @@ export default function AddItems({
           </div>
         </div>
       </div>
-      <dialog id="edit-item-dialog" ref={dialogRef}>
-        <p>test</p>
-        <button onClick={handleCloseDialogClick}>Close Dialog</button>
-      </dialog>
+      <EditItemDialog
+        dialogRef={dialogRef}
+        handleCloseDialogClick={handleCloseDialogClick}
+        selectedItem={selectedItem}
+        editItemValue={editItemValue}
+        handleEditItemChange={handleEditItemChange}
+      />
     </div>
   );
 }

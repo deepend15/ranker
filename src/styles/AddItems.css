@@ -46,7 +46,7 @@ h2 {
   width: 250px;
 }
 
-.new-item-input-div > input:focus-visible {
+input:focus-visible {
   border-color: transparent;
   outline: 2px solid green;
   border-radius: 3px;
@@ -72,7 +72,7 @@ h2 {
   border-radius: 20px;
   background-color: #cdf8da;
   color: rgb(15, 69, 3);
-  border: 2px rgb(157, 230, 157) outset;
+  border: 2px outset rgb(157, 230, 157);
   font-weight: 500;
 }
 
@@ -144,7 +144,6 @@ h3 {
   padding: 6px 14px;
   font-size: 1.7rem;
   background-color: #f1f9f3;
-  /* max-width: 80%; */
   border: 3px solid rgb(152, 213, 152);
   border-radius: 8px;
   text-align: left;
@@ -160,11 +159,114 @@ h3 {
 }
 
 #edit-item-dialog {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 25px;
+  overflow: visible;
+  background-color: #faf6f1;
 }
 
+#edit-item-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#edit-item-dialog > p {
+  padding: 8px 5px 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+#edit-item-dialog label {
+  font-size: 1.9rem;
+}
+
+#edit-item-dialog input {
+  padding: 8px 5px;
+  font-size: 1.7rem;
+}
+
+.edit-dialog-btns {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-size: 1.7rem;
+  margin-bottom: -5px;
+}
+
+.edit-dialog-btns > button {
+  padding: 5px 30px;
+  border-radius: 25px;
+  font-weight: 500;
+}
+
+.edit-dialog-btns > button:first-child {
+  display: grid;
+  background-color: darkred;
+  color: rgb(240, 240, 240);
+  border: 2px outset silver;
+}
+
+.edit-dialog-btns > button:first-child > span {
+  width: min-content;
+}
+
+.edit-dialog-btns > button:last-child {
+  background-color: #cdf8da;
+  color: rgb(15, 69, 3);
+  border: 2px outset rgb(192, 234, 192);
+}
+
+.edit-dialog-btns > button:hover {
+  cursor: pointer;
+}
+
+.edit-dialog-btns > button:first-child:hover {
+  background-color: rgb(206, 0, 0);
+}
+
+.edit-dialog-btns > button:first-child:active {
+  border-style: inset;
+  background-color: darkred;
+}
+
+.edit-dialog-btns > button:last-child:hover {
+  background-color: #95eab0;
+  border-color: rgb(131, 213, 131);
+}
+
+.edit-dialog-btns > button:last-child:active {
+  background-color: #cdf8da;
+  border-style: inset;
+}
+
+.close-dialog-btn {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  background-color: red;
+  padding: 3px 10px;
+  border: 3px solid darkred;
+  color: darkred;
+  font-weight: bold;
+  transform: translate(50%, -50%);
+  border-radius: 6px;
+  font-size: 1.6rem;
+  will-change: transform;
+  transition: transform 300ms;
+}
+
+.close-dialog-btn:hover {
+  cursor: pointer;
+  background-color: rgb(235, 0, 0);
+  transform: translate(50%, -50%) scale(1.25);
+}
+
+.close-dialog-btn:active {
+  background-color: red;
+}
 
 @media (max-width: 950px) {
   .new-item-div {
