@@ -2,6 +2,7 @@ import "../styles/App.css";
 import { useState, useRef, useEffect } from "react";
 import { initialItems } from "./ItemList";
 import AddItems from "./AddItems";
+import Ranking from "./Ranking";
 
 function App() {
   const [appStatus, setAppStatus] = useState("add-items");
@@ -13,10 +14,13 @@ function App() {
   const [numberOfItemsStatus, setNumberOfItemsStatus] = useState("initial");
   const dialogRef = useRef(null);
   const [showDialog, setShowDialog] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
+  const [selectedItem, setSelectedItem] = useState(null);
   const [editItemValue, setEditItemValue] = useState("");
   const [editItemInputValid, setEditItemInputValid] = useState(true);
   const editInputRef = useRef(null);
+  const [choice1, setChoice1] = useState(null);
+  const [choice2, setChoice2] = useState(null);
+  const [rankedItems, setRankedItems] = useState([]);
 
   function handleNewItemChange(e) {
     if (!itemInputValid) setItemInputValid(true);
@@ -126,36 +130,55 @@ function App() {
     setShowDialog(false);
   }
 
+  function generateRandomItemPair() {
+    const index1 = Math.floor(Math.random() * itemObjects.length);
+    const index2 = Math.floor(Math.random() * itemObjects.length);
+
+    if (index1 !== index2) {
+      const item1 = itemObjects[index1];
+      const item2 = itemObjects[index2];
+      if (rankedItems.length === 0) {
+        setChoice1(item1);
+        setChoice2(item2);
+      }
+    } else generateRandomItemPair();
+  }
+
   function handleRankItemsClick() {
     if (itemObjects.length < 2) setNumberOfItemsStatus("invalid");
+    else {
+      generateRandomItemPair();
+      setAppStatus("ranking");
+    }
   }
 
   return (
     <>
       <h1>Ranker</h1>
       {appStatus === "add-items" && (
-        <>
-          <AddItems
-            itemObjects={itemObjects}
-            newItemValue={newItemValue}
-            inputRef={inputRef}
-            itemInputValid={itemInputValid}
-            handleNewItemChange={handleNewItemChange}
-            handleAddItemClick={handleAddItemClick}
-            handleRankItemsClick={handleRankItemsClick}
-            numberOfItemsStatus={numberOfItemsStatus}
-            handleSingleItemClick={handleSingleItemClick}
-            dialogRef={dialogRef}
-            handleCloseDialogClick={handleCloseDialogClick}
-            selectedItem={selectedItem}
-            editInputRef={editInputRef}
-            editItemValue={editItemValue}
-            editItemInputValid={editItemInputValid}
-            handleEditItemChange={handleEditItemChange}
-            handleDialogOKClick={handleDialogOKClick}
-            handleDeleteItemClick={handleDeleteItemClick}
-          />
-        </>
+        <AddItems
+          itemObjects={itemObjects}
+          newItemValue={newItemValue}
+          inputRef={inputRef}
+          itemInputValid={itemInputValid}
+          handleNewItemChange={handleNewItemChange}
+          handleAddItemClick={handleAddItemClick}
+          handleRankItemsClick={handleRankItemsClick}
+          numberOfItemsStatus={numberOfItemsStatus}
+          handleSingleItemClick={handleSingleItemClick}
+          dialogRef={dialogRef}
+          handleCloseDialogClick={handleCloseDialogClick}
+          selectedItem={selectedItem}
+          editInputRef={editInputRef}
+          editItemValue={editItemValue}
+          editItemInputValid={editItemInputValid}
+          handleEditItemChange={handleEditItemChange}
+          handleDialogOKClick={handleDialogOKClick}
+          handleDeleteItemClick={handleDeleteItemClick}
+        />
+      )}
+      {appStatus === "ranking" && (
+        <Ranking choice1={choice1} choice2={choice2} />
       )}
     </>
   );

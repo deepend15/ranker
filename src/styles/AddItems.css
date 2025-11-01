@@ -283,6 +283,47 @@ h3 {
   background-color: red;
 }
 
+.ranking-main-div {
+  display: grid;
+  gap: 30px;
+  justify-items: center;
+  width: 100%;
+}
+
+.ranking-main-div > h2 {
+  font-size: 2.2rem;
+}
+
+.ranking-items-div {
+  display: flex;
+  gap: 60px;
+  width: 100%;
+  justify-content: center;
+}
+
+.ranking-items-div > button {
+  flex-basis: 450px;
+  height: 300px;
+  font-size: 2.4rem;
+  line-height: 1.5;
+  padding: 20px;
+  background-color: #e6fded;
+  color: black;
+  border-radius: 35px;
+  border: 2px solid darkgreen;
+  transition: transform 300ms;
+}
+
+.ranking-items-div > button:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+  box-shadow: 0 0 8px rgb(147, 147, 147);
+}
+
+.ranking-items-div > button:active {
+  transform: scale(.9);
+}
+
 @media (max-width: 950px) {
   .new-item-div {
     gap: 18px;
