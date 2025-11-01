@@ -17,6 +17,7 @@ export default function AddItems({
   editItemInputValid,
   handleEditItemChange,
   handleDialogOKClick,
+  handleDeleteItemClick,
 }) {
   let editItemInputClassName = "";
   if (!editItemInputValid) editItemInputClassName = "invalid-input";
@@ -91,7 +92,7 @@ export default function AddItems({
           {!editItemInputValid && <span>item name required</span>}
         </p>
         <div className="edit-dialog-btns">
-          <button>
+          <button onClick={handleDeleteItemClick}>
             <span>delete item</span>
           </button>
           <button onClick={handleDialogOKClick}>OK</button>

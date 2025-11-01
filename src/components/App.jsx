@@ -105,6 +105,27 @@ function App() {
     }
   }
 
+  function handleDeleteItemClick() {
+    const newItems = { ...items };
+    delete newItems[selectedItem.id];
+    const itemIdNumber = Number(selectedItem.id.slice(4));
+    if (!(itemObjects.length === itemIdNumber)) {
+      let rightOfItem = itemObjects.slice(itemIdNumber);
+      rightOfItem.forEach((itemObject) => {
+        const itemNumber = Number(itemObject.id.slice(4));
+        const newItemId = "item" + (itemNumber - 1).toString();
+        newItems[newItemId] = {
+          ...itemObject,
+          id: newItemId,
+        };
+        delete newItems[itemObject.id];
+      });
+    }
+    setItems(newItems);
+    if (!editItemInputValid) setEditItemInputValid(true);
+    setShowDialog(false);
+  }
+
   function handleRankItemsClick() {
     if (itemObjects.length < 2) setNumberOfItemsStatus("invalid");
   }
@@ -132,6 +153,7 @@ function App() {
             editItemInputValid={editItemInputValid}
             handleEditItemChange={handleEditItemChange}
             handleDialogOKClick={handleDialogOKClick}
+            handleDeleteItemClick={handleDeleteItemClick}
           />
         </>
       )}
