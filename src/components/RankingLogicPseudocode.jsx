@@ -9,8 +9,8 @@
 //    **Relationship can be chained, i.e. 'X beats Y; Y beats Z; Z beats A' means that X has a relationship with all of Y, Z, and A
 //   -Rank the two values, and store the rankings for each one
 //   -Check if the 'ranked' array is empty. If so:
-//   --Put the random value with the higher ranking in the first (ranked[0]) position in the ranked array, and the random value with the lower 
-//   ranking in the second (ranked[1]) position in the ranked array
+//     --Put the random value with the higher ranking in the first (ranked[0]) position in the ranked array, and the random value with the lower 
+//     ranking in the second (ranked[1]) position in the ranked array
 //     --Check if the ranked array length is equivalent to the initial value array length. If so, end large loop and return the ranked array. If
 //     not, go back to beginning of large loop
 //   -If ranked array is not empty, check if either one of the two random values is in the ranked array
