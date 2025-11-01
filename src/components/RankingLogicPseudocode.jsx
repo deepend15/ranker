@@ -42,31 +42,31 @@
 //           started a few steps ago. Repeat the same process, this time setting the "corresponding side" equivalent to the new side that we just
 //           looked at with "next up" as a reference point. This may create several more loops, until the missing value is eventually added to the
 //           ranked array.
-//       --After missing value is added to ranked:
-//         ---Check if the value that was just added is storing ranking information on any other values that are not in the ranked array.
-//         ---If there is stored information about values not yet in the ranked array, we want to place those values in the ranked array next.
+//       ---After missing value is added to ranked:
+//         ----Check if the value that was just added is storing ranking information on any other values that are not in the ranked array.
+//         ----If there is stored information about values not yet in the ranked array, we want to place those values in the ranked array next.
 //         I.e., if X was just added to the ranked array, and X has stored information that it ranks higher than Y, and Y is not yet in the ranked
 //         array, we then want to proceed with placing Y in the ranked array.
-//           ----To place stored, unranked values in the ranked array, get an array of the unranked values (stored-unranked array)
-//           ----Get the first value in the array. This is set as the value we are now trying to rank.
-//           ----First, double check that it's not in the ranked array. This is necessary in case it was added in a later chain of unranked values.
+//           -----To place stored, unranked values in the ranked array, get an array of the unranked values (stored-unranked array)
+//           -----Get the first value in the array. This is set as the value we are now trying to rank.
+//           -----First, double check that it's not in the ranked array. This is necessary in case it was added in a later chain of unranked values.
 //           If it's now in the ranked array, we can skip it and move on to the next value in the stored-unranked array
-//           ----Get the relationship between the unranked value and the value that was just added. If the just-added value ranks higher than the
+//           -----Get the relationship between the unranked value and the value that was just added. If the just-added value ranks higher than the
 //           unranked value, look to the right side of the just-ranked value in the ranked array. If the just-added value ranks lower than the
 //           unranked value, look to the left of the just-ranked value in the the ranked array.
-//           ----If the corresponding right/left side is empty, add the unranked value directly to the right/left position of the just-added value
+//           -----If the corresponding right/left side is empty, add the unranked value directly to the right/left position of the just-added value
 //           in the ranked array. Then go back to beginning of "After missing value is added to ranked" and start that with the newly added value
 //           -----If the corresponding right/left side is not empty, we must start another smaller loop. Go back up to the "If the corresponding
 //           right/left side is not empty" section above, and start again from there.
-//           ----Once the first value in the stored-unranked array (and potentially all of its subsequent stored, unranked values) is placed in the
+//           -----Once the first value in the stored-unranked array (and potentially all of its subsequent stored, unranked values) is placed in the
 //           ranked array, go to the next value (if any) in the stored-unranked array. Go back up to "First, double check that it's not in the
 //           ranked array" and repeat the process
 //           -----Repeat as many times as needed until the stored-unranked array is empty / all of the values in it have been placed in ranked
-//         ---Once all of the just-added value's stored/unranked values have also been added to the ranked array (or if the just-added value
+//         ----Once all of the just-added value's stored/unranked values have also been added to the ranked array (or if the just-added value
 //         doesn't have any stored/unranked values), check the length of the ranked array
-//         ---If the length of the ranked array is not the same as the length of the initial array, go all the way back to beginning of large loop
+//         ----If the length of the ranked array is not the same as the length of the initial array, go all the way back to beginning of large loop
 //         and generate two new random values from the initial array to rank
-//         ---If the length of the ranked array is the same as the length of the initial array, the large loop is complete and we can return the
+//         ----If the length of the ranked array is the same as the length of the initial array, the large loop is complete and we can return the
 //         ranked array
 
 // Example scenario (all random numbers / comparisons were truly generated at random via JS functions):
