@@ -15,6 +15,8 @@ function App() {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedItem, setSelectedItem] = useState({});
   const [editItemValue, setEditItemValue] = useState("");
+  const [editItemInputValid, setEditItemInputValid] = useState(true);
+  const editInputRef = useRef(null);
 
   function handleNewItemChange(e) {
     if (!itemInputValid) setItemInputValid(true);
@@ -77,11 +79,30 @@ function App() {
   }
 
   function handleEditItemChange(e) {
+    if (!editItemInputValid) setEditItemInputValid(true);
     setEditItemValue(e.target.value);
   }
 
   function handleCloseDialogClick() {
+    if (!editItemInputValid) setEditItemInputValid(true);
     setShowDialog(false);
+  }
+
+  function handleDialogOKClick() {
+    if (editItemValue === "") {
+      setEditItemInputValid(false);
+      editInputRef.current.focus();
+    } else {
+      const newItems = {
+        ...items,
+        [selectedItem.id]: {
+          ...selectedItem,
+          value: editItemValue,
+        },
+      };
+      setItems(newItems);
+      setShowDialog(false);
+    }
   }
 
   function handleRankItemsClick() {
@@ -106,8 +127,11 @@ function App() {
             dialogRef={dialogRef}
             handleCloseDialogClick={handleCloseDialogClick}
             selectedItem={selectedItem}
+            editInputRef={editInputRef}
             editItemValue={editItemValue}
+            editItemInputValid={editItemInputValid}
             handleEditItemChange={handleEditItemChange}
+            handleDialogOKClick={handleDialogOKClick}
           />
         </>
       )}

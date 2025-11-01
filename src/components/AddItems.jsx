@@ -1,5 +1,4 @@
 import "../styles/AddItems.css";
-import { EditItemDialog } from "./EditItemDialog";
 
 export default function AddItems({
   itemObjects,
@@ -13,10 +12,15 @@ export default function AddItems({
   handleSingleItemClick,
   dialogRef,
   handleCloseDialogClick,
-  selectedItem,
+  editInputRef,
   editItemValue,
+  editItemInputValid,
   handleEditItemChange,
+  handleDialogOKClick,
 }) {
+  let editItemInputClassName = "";
+  if (!editItemInputValid) editItemInputClassName = "invalid-input";
+
   return (
     <div className="add-items-main-div">
       <h2>Enter whatever items you wish to rank!</h2>
@@ -72,13 +76,30 @@ export default function AddItems({
           </div>
         </div>
       </div>
-      <EditItemDialog
-        dialogRef={dialogRef}
-        handleCloseDialogClick={handleCloseDialogClick}
-        selectedItem={selectedItem}
-        editItemValue={editItemValue}
-        handleEditItemChange={handleEditItemChange}
-      />
+      <dialog id="edit-item-dialog" ref={dialogRef}>
+        <p>
+          <label htmlFor="edit-item-name">Item name:</label>
+          <input
+            type="text"
+            id="edit-item-name"
+            name="edit-item-name"
+            ref={editInputRef}
+            value={editItemValue}
+            className={editItemInputClassName}
+            onChange={handleEditItemChange}
+          />
+          {!editItemInputValid && <span>item name required</span>}
+        </p>
+        <div className="edit-dialog-btns">
+          <button>
+            <span>delete item</span>
+          </button>
+          <button onClick={handleDialogOKClick}>OK</button>
+        </div>
+        <button className="close-dialog-btn" onClick={handleCloseDialogClick}>
+          X
+        </button>
+      </dialog>
     </div>
   );
 }

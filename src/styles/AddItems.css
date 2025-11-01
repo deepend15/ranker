@@ -177,6 +177,7 @@ h3 {
   align-items: center;
   gap: 10px;
   margin-bottom: 30px;
+  position: relative;
 }
 
 #edit-item-dialog label {
@@ -186,6 +187,20 @@ h3 {
 #edit-item-dialog input {
   padding: 8px 5px;
   font-size: 1.7rem;
+}
+
+.invalid-input:focus-visible {
+  outline: 2px solid red;
+}
+
+#edit-item-dialog > p > span {
+  position: absolute;
+  color: red;
+  right: 0;
+  bottom: 0;
+  transform: translate(-15px, 100%);
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .edit-dialog-btns {
