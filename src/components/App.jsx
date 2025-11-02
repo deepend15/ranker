@@ -130,25 +130,98 @@ function App() {
     setShowDialog(false);
   }
 
-  function generateRandomItemPair() {
-    const index1 = Math.floor(Math.random() * itemObjects.length);
-    const index2 = Math.floor(Math.random() * itemObjects.length);
+  function haveRelationship(x, y, parentObject) {
+    function beats(x, y, parentObject) {
+      let response = false;
+      if (x.beats.includes(y.id)) response = true;
+      else {
+        for (let i = 0; i < x.beats.length; i++) {
+          const id = x.beats[i];
+          if (
+            parentObject[id].beats !== undefined &&
+            beats(parentObject[id], y, parentObject)
+          ) {
+            response = true;
+            break;
+          }
+        }
+      }
+      return response;
+    }
+
+    if (!(x.beats === undefined && y.beats === undefined)) {
+      if (x.beats !== undefined && beats(x, y, parentObject)) return true;
+      if (y.beats !== undefined && beats(y, x, parentObject)) return true;
+    }
+
+    return false;
+  }
+
+  function generateRandomItemPair(passedItems, passedRankedArray) {
+    const passedItemObjects = Object.values(passedItems);
+
+    const index1 = Math.floor(Math.random() * passedItemObjects.length);
+    const index2 = Math.floor(Math.random() * passedItemObjects.length);
 
     if (index1 !== index2) {
-      const item1 = itemObjects[index1];
-      const item2 = itemObjects[index2];
-      if (rankedItems.length === 0) {
+      const item1 = passedItemObjects[index1];
+      const item2 = passedItemObjects[index2];
+      if (passedRankedArray.length === 0) {
         setChoice1(item1);
         setChoice2(item2);
+      } else {
+        if (
+          (passedRankedArray.includes(item1.id) &&
+            passedRankedArray.includes(item2.id)) ||
+          haveRelationship(item1, item2, passedItems)
+        ) {
+          generateRandomItemPair(passedItems, passedRankedArray);
+        } else {
+          setChoice1(item1);
+          setChoice2(item2);
+        }
       }
-    } else generateRandomItemPair();
+    } else generateRandomItemPair(passedItems, passedRankedArray);
   }
 
   function handleRankItemsClick() {
     if (itemObjects.length < 2) setNumberOfItemsStatus("invalid");
     else {
-      generateRandomItemPair();
+      generateRandomItemPair(items, rankedItems);
       setAppStatus("ranking");
+    }
+  }
+
+  function handleChoiceButtonClick(e) {
+    // identify winner & loser
+    const winnerId = e.target.dataset.customId;
+    let winnerItem;
+    winnerId === choice1.id ? (winnerItem = choice1) : (winnerItem = choice2);
+    let loserItem;
+    winnerItem === choice1 ? (loserItem = choice2) : (loserItem = choice1);
+
+    // store winner / loser ranking data in their respective item objects
+    const newItems = { ...items };
+    if (
+      Object.prototype.hasOwnProperty.call(newItems[winnerItem.id], "beats")
+    ) {
+      newItems[winnerItem.id].beats.push(loserItem.id);
+    } else {
+      newItems[winnerItem.id].beats = [loserItem.id];
+    }
+    if (Object.prototype.hasOwnProperty.call(newItems[loserItem.id], "loses")) {
+      newItems[loserItem.id].loses.push(winnerItem.id);
+    } else {
+      newItems[loserItem.id].loses = [winnerItem.id];
+    }
+    setItems(newItems);
+
+    if (rankedItems.length === 0) {
+      const newRankedItemArray = [winnerItem.id, loserItem.id];
+      setRankedItems(newRankedItemArray);
+      if (newRankedItemArray.length === itemObjects.length)
+        setAppStatus("ranked");
+      else generateRandomItemPair(newItems, newRankedItemArray);
     }
   }
 
@@ -178,7 +251,13 @@ function App() {
         />
       )}
       {appStatus === "ranking" && (
-        <Ranking choice1={choice1} choice2={choice2} />
+        <Ranking
+          choice1={choice1}
+          choice2={choice2}
+          handleChoiceButtonClick={handleChoiceButtonClick}
+          items={items}
+          rankedItems={rankedItems}
+        />
       )}
     </>
   );
