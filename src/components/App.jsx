@@ -21,6 +21,8 @@ function App() {
   const [choice1, setChoice1] = useState(null);
   const [choice2, setChoice2] = useState(null);
   const [rankedItems, setRankedItems] = useState([]);
+  const [analyzingSmallArray, setAnalyzingSmallArray] = useState(false);
+  const [analyzingArray, setAnalyzingArray] = useState([]);
 
   function handleNewItemChange(e) {
     if (!itemInputValid) setItemInputValid(true);
@@ -216,12 +218,104 @@ function App() {
     }
     setItems(newItems);
 
-    if (rankedItems.length === 0) {
-      const newRankedItemArray = [winnerItem.id, loserItem.id];
-      setRankedItems(newRankedItemArray);
-      if (newRankedItemArray.length === itemObjects.length)
-        setAppStatus("ranked");
-      else generateRandomItemPair(newItems, newRankedItemArray);
+    if (!analyzingSmallArray) {
+      if (rankedItems.length === 0) {
+        const newRankedItemArray = [winnerItem.id, loserItem.id];
+        setRankedItems(newRankedItemArray);
+        if (newRankedItemArray.length === itemObjects.length)
+          setAppStatus("ranked");
+        else generateRandomItemPair(newItems, newRankedItemArray);
+      } else {
+        if (
+          !rankedItems.includes(winnerItem.id) &&
+          !rankedItems.includes(loserItem.id)
+        ) {
+          generateRandomItemPair(newItems, rankedItems);
+        } else {
+          const newRankedItemArray = rankedItems.slice();
+          let presentItem;
+          let missingItem;
+          if (newRankedItemArray.includes(winnerItem.id)) {
+            presentItem = winnerItem;
+            missingItem = loserItem;
+          } else {
+            presentItem = loserItem;
+            missingItem = winnerItem;
+          }
+          const presentItemIndex = newRankedItemArray.indexOf(presentItem.id);
+          let correspondingSide;
+          presentItem.id === winnerItem.id
+            ? (correspondingSide = newRankedItemArray.slice(
+                presentItemIndex + 1
+              ))
+            : (correspondingSide = newRankedItemArray.slice(
+                0,
+                presentItemIndex
+              ));
+          if (correspondingSide.length === 0) {
+            presentItem.id === winnerItem.id
+              ? newRankedItemArray.push(missingItem.id)
+              : newRankedItemArray.unshift(missingItem.id);
+            setRankedItems(newRankedItemArray);
+          } else {
+            let nextUp;
+            if (correspondingSide.length === 1) nextUp = correspondingSide[0];
+            else {
+              let randomIndex = Math.floor(
+                Math.random() * correspondingSide.length
+              );
+              nextUp = correspondingSide[randomIndex];
+            }
+            const nextUpItem = newItems[nextUp];
+            setAnalyzingSmallArray(true);
+            setAnalyzingArray(correspondingSide);
+            setChoice1(missingItem);
+            setChoice2(nextUpItem);
+          }
+          // unfinished. go back up to "if (correspondingSide.length === 0)" and check after the setRankedItems() call. at some point, need to implement checks if newRankedItemArray = itemObjects length, and also if added value has stored unranked data
+        }
+      }
+    } else if (analyzingSmallArray) {
+      // from earlier logic, choice1 = missingItem, choice2 = nextUpItem
+      if (analyzingArray.length === 1) {
+        const newRankedItemArray = rankedItems.slice();
+        const nextUpIndex = newRankedItemArray.indexOf(choice2.id);
+        winnerItem.id === choice1.id
+          ? newRankedItemArray.splice(nextUpIndex, 0, choice1.id)
+          : newRankedItemArray.splice(nextUpIndex + 1, 0, choice1.id);
+        setAnalyzingSmallArray(false);
+        setAnalyzingArray([]);
+        setRankedItems(newRankedItemArray);
+      } else {
+        let newAnalyzingArray = analyzingArray.slice();
+        let correspondingSide;
+        const nextUpIndex = newAnalyzingArray.indexOf(choice2.id);
+        winnerItem.id === choice1.id
+          ? (correspondingSide = newAnalyzingArray.slice(0, nextUpIndex))
+          : (correspondingSide = newAnalyzingArray.slice(nextUpIndex + 1));
+        if (correspondingSide.length === 0) {
+          const newRankedItemArray = rankedItems.slice();
+          const nextUpIndexInRanked = newRankedItemArray.indexOf(choice2.id);
+          winnerItem.id === choice1.id
+            ? newRankedItemArray.splice(nextUpIndexInRanked, 0, choice1.id)
+            : newRankedItemArray.splice(nextUpIndexInRanked + 1, 0, choice1.id);
+          setAnalyzingSmallArray(false);
+          setAnalyzingArray([]);
+          setRankedItems(newRankedItemArray);
+        } else {
+          let nextUp;
+          if (correspondingSide.length === 1) nextUp = correspondingSide[0];
+          else {
+            let randomIndex = Math.floor(
+              Math.random() * correspondingSide.length
+            );
+            nextUp = correspondingSide[randomIndex];
+          }
+          const nextUpItem = newItems[nextUp];
+          setAnalyzingArray(correspondingSide);
+          setChoice2(nextUpItem);
+        }
+      }
     }
   }
 
