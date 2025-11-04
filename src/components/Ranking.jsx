@@ -9,10 +9,18 @@ export default function Ranking({
     <div className="ranking-main-div">
       <h2>Pick your favorite:</h2>
       <div className="ranking-items-div">
-        <button data-custom-id={choice1.id} onClick={handleChoiceButtonClick}>
+        <button
+          // key={Math.random()}
+          data-custom-id={choice1.id}
+          onClick={handleChoiceButtonClick}
+        >
           {choice1.value}
         </button>
-        <button data-custom-id={choice2.id} onClick={handleChoiceButtonClick}>
+        <button
+          // key={Math.random()}
+          data-custom-id={choice2.id}
+          onClick={handleChoiceButtonClick}
+        >
           {choice2.value}
         </button>
       </div>

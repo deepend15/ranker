@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { initialItems } from "./ItemList";
 import AddItems from "./AddItems";
 import Ranking from "./Ranking";
+import Ranked from "./Ranked";
 
 function App() {
   const [appStatus, setAppStatus] = useState("add-items");
@@ -23,6 +24,10 @@ function App() {
   const [rankedItems, setRankedItems] = useState([]);
   const [analyzingSmallArray, setAnalyzingSmallArray] = useState(false);
   const [analyzingArray, setAnalyzingArray] = useState([]);
+  const [rankingUnrankedData, setRankingUnrankedData] = useState(false);
+  const [unrankedDataQueueStateVariable, setUnrankedDataQueueStateVariable] =
+    useState([]);
+  let unrankedDataQueueRegularVariable = [];
 
   function handleNewItemChange(e) {
     if (!itemInputValid) setItemInputValid(true);
@@ -152,11 +157,13 @@ function App() {
     }
 
     if (!(x.beats === undefined && y.beats === undefined)) {
-      if (x.beats !== undefined && beats(x, y, parentObject)) return true;
-      if (y.beats !== undefined && beats(y, x, parentObject)) return true;
+      if (x.beats !== undefined && beats(x, y, parentObject))
+        return { winner: x.id };
+      if (y.beats !== undefined && beats(y, x, parentObject))
+        return { winner: y.id };
     }
 
-    return false;
+    return "no";
   }
 
   function generateRandomItemPair(passedItems, passedRankedArray) {
@@ -175,7 +182,7 @@ function App() {
         if (
           (passedRankedArray.includes(item1.id) &&
             passedRankedArray.includes(item2.id)) ||
-          haveRelationship(item1, item2, passedItems)
+          haveRelationship(item1, item2, passedItems) !== "no"
         ) {
           generateRandomItemPair(passedItems, passedRankedArray);
         } else {
@@ -217,14 +224,173 @@ function App() {
       newItems[loserItem.id].loses = [winnerItem.id];
     }
     setItems(newItems);
+    winnerItem = newItems[winnerItem.id];
+    loserItem = newItems[loserItem.id];
+
+    function getUnrankedDataArray(itemObject, array) {
+      const unrankedIdArray = [];
+      if (itemObject.beats !== undefined) {
+        itemObject.beats.forEach((id) => {
+          if (!array.includes(id)) unrankedIdArray.push(id);
+        });
+      }
+      if (itemObject.loses !== undefined) {
+        itemObject.loses.forEach((id) => {
+          if (!array.includes(id)) unrankedIdArray.push(id);
+        });
+      }
+      return unrankedIdArray;
+    }
+
+    function checkIfComplete(array) {
+      if (array.length === itemObjects.length) setAppStatus("ranked");
+      else generateRandomItemPair(newItems, array);
+    }
+
+    function handleUnrankedData(rankedArray) {
+      const newRankedItemArray = rankedArray.slice();
+
+      const currentUnrankedItemArray = unrankedDataQueueRegularVariable[0];
+      const currentUnrankedItemId = currentUnrankedItemArray[0];
+
+      function runAfterItemAdded(justAddedItem, rankedArray) {
+        unrankedDataQueueRegularVariable.splice(0, 1);
+
+        const unrankedDataArray = getUnrankedDataArray(
+          justAddedItem,
+          rankedArray
+        );
+        if (unrankedDataArray.length !== 0) {
+          unrankedDataArray.forEach((id) =>
+            unrankedDataQueueRegularVariable.unshift([id, justAddedItem])
+          );
+        }
+        if (unrankedDataQueueRegularVariable.length !== 0)
+          handleUnrankedData(rankedArray);
+        else checkIfComplete(rankedArray);
+      }
+
+      function handleCorrespondingSideLengthGreaterThanZero(
+        side,
+        unrankedItem
+      ) {
+        let nextUp;
+        if (side.length === 1) nextUp = side[0];
+        else {
+          let randomIndex = Math.floor(Math.random() * side.length);
+          nextUp = side[randomIndex];
+        }
+        const nextUpItem = newItems[nextUp];
+        if (haveRelationship(unrankedItem, nextUpItem, newItems) === "no") {
+          setAnalyzingSmallArray(true);
+          setAnalyzingArray(side);
+          setRankingUnrankedData(true);
+          setUnrankedDataQueueStateVariable(unrankedDataQueueRegularVariable);
+          setChoice1(unrankedItem);
+          setChoice2(nextUpItem);
+        } else {
+          handleHaveRelationship(unrankedItem, nextUpItem, side);
+        }
+      }
+
+      function handleHaveRelationship(unrankedItem, nextUpItem, passedSide) {
+        const result = haveRelationship(unrankedItem, nextUpItem, newItems);
+        const winnerId = result.winner;
+        if (passedSide.length === 1) {
+          const nextUpIndexInRanked = newRankedItemArray.indexOf(nextUpItem.id);
+          winnerId === unrankedItem.id
+            ? newRankedItemArray.splice(nextUpIndexInRanked, 0, unrankedItem.id)
+            : newRankedItemArray.splice(
+                nextUpIndexInRanked + 1,
+                0,
+                unrankedItem.id
+              );
+          setRankedItems(newRankedItemArray);
+          runAfterItemAdded(unrankedItem, newRankedItemArray);
+        } else {
+          let correspondingSide;
+          const nextUpIndexInPassedSide = passedSide.indexOf(nextUpItem.id);
+          winnerId === unrankedItem.id
+            ? (correspondingSide = passedSide.slice(0, nextUpIndexInPassedSide))
+            : (correspondingSide = passedSide.slice(
+                nextUpIndexInPassedSide + 1
+              ));
+          if (correspondingSide.length === 0) {
+            const nextUpIndexInRanked = newRankedItemArray.indexOf(
+              nextUpItem.id
+            );
+            winnerId === unrankedItem.id
+              ? newRankedItemArray.splice(
+                  nextUpIndexInRanked,
+                  0,
+                  unrankedItem.id
+                )
+              : newRankedItemArray.splice(
+                  nextUpIndexInRanked + 1,
+                  0,
+                  unrankedItem.id
+                );
+            setRankedItems(newRankedItemArray);
+            runAfterItemAdded(unrankedItem, newRankedItemArray);
+          } else {
+            handleCorrespondingSideLengthGreaterThanZero(
+              correspondingSide,
+              unrankedItem
+            );
+          }
+        }
+      }
+
+      if (!newRankedItemArray.includes(currentUnrankedItemId)) {
+        const currentUnrankedItemObject = newItems[currentUnrankedItemId];
+        const newlyAddedItem = currentUnrankedItemArray[1];
+        let correspondingSide;
+        const newItemIdInRanked = newRankedItemArray.indexOf(newlyAddedItem.id);
+        if (
+          newlyAddedItem.beats !== undefined &&
+          newlyAddedItem.beats.includes(currentUnrankedItemId)
+        ) {
+          correspondingSide = newRankedItemArray.slice(newItemIdInRanked + 1);
+        } else
+          correspondingSide = newRankedItemArray.slice(0, newItemIdInRanked);
+
+        if (correspondingSide.length === 0) {
+          if (
+            newlyAddedItem.beats !== undefined &&
+            newlyAddedItem.beats.includes(currentUnrankedItemId)
+          ) {
+            newRankedItemArray.splice(
+              newItemIdInRanked + 1,
+              0,
+              currentUnrankedItemId
+            );
+          } else
+            newRankedItemArray.splice(
+              newItemIdInRanked,
+              0,
+              currentUnrankedItemId
+            );
+          setRankedItems(newRankedItemArray);
+          runAfterItemAdded(currentUnrankedItemObject, newRankedItemArray);
+        } else {
+          handleCorrespondingSideLengthGreaterThanZero(
+            correspondingSide,
+            currentUnrankedItemObject
+          );
+        }
+      } else {
+        unrankedDataQueueRegularVariable.splice(0, 1);
+        if (unrankedDataQueueRegularVariable.length !== 0)
+          handleUnrankedData(newRankedItemArray);
+        else checkIfComplete(newRankedItemArray);
+      }
+    }
 
     if (!analyzingSmallArray) {
       if (rankedItems.length === 0) {
         const newRankedItemArray = [winnerItem.id, loserItem.id];
         setRankedItems(newRankedItemArray);
-        if (newRankedItemArray.length === itemObjects.length)
-          setAppStatus("ranked");
-        else generateRandomItemPair(newItems, newRankedItemArray);
+        checkIfComplete(newRankedItemArray);
       } else {
         if (
           !rankedItems.includes(winnerItem.id) &&
@@ -257,6 +423,18 @@ function App() {
               ? newRankedItemArray.push(missingItem.id)
               : newRankedItemArray.unshift(missingItem.id);
             setRankedItems(newRankedItemArray);
+            const unrankedDataArray = getUnrankedDataArray(
+              missingItem,
+              newRankedItemArray
+            );
+            if (unrankedDataArray.length !== 0) {
+              unrankedDataArray.forEach((id) =>
+                unrankedDataQueueRegularVariable.unshift([id, missingItem])
+              );
+              handleUnrankedData(newRankedItemArray);
+            } else {
+              checkIfComplete(newRankedItemArray);
+            }
           } else {
             let nextUp;
             if (correspondingSide.length === 1) nextUp = correspondingSide[0];
@@ -272,7 +450,6 @@ function App() {
             setChoice1(missingItem);
             setChoice2(nextUpItem);
           }
-          // unfinished. go back up to "if (correspondingSide.length === 0)" and check after the setRankedItems() call. at some point, need to implement checks if newRankedItemArray = itemObjects length, and also if added value has stored unranked data
         }
       }
     } else if (analyzingSmallArray) {
@@ -286,6 +463,24 @@ function App() {
         setAnalyzingSmallArray(false);
         setAnalyzingArray([]);
         setRankedItems(newRankedItemArray);
+        if (rankingUnrankedData) {
+          unrankedDataQueueRegularVariable = unrankedDataQueueStateVariable;
+          unrankedDataQueueRegularVariable.splice(0, 1);
+          setRankingUnrankedData(false);
+        }
+        const choice1NewItemObject = newItems[choice1.id];
+        const unrankedDataArray = getUnrankedDataArray(
+          choice1NewItemObject,
+          newRankedItemArray
+        );
+        if (unrankedDataArray.length !== 0) {
+          unrankedDataArray.forEach((id) =>
+            unrankedDataQueueRegularVariable.unshift([id, choice1NewItemObject])
+          );
+        }
+        if (unrankedDataQueueRegularVariable.length !== 0)
+          handleUnrankedData(newRankedItemArray);
+        else checkIfComplete(newRankedItemArray);
       } else {
         let newAnalyzingArray = analyzingArray.slice();
         let correspondingSide;
@@ -302,6 +497,27 @@ function App() {
           setAnalyzingSmallArray(false);
           setAnalyzingArray([]);
           setRankedItems(newRankedItemArray);
+          if (rankingUnrankedData) {
+            unrankedDataQueueRegularVariable = unrankedDataQueueStateVariable;
+            unrankedDataQueueRegularVariable.splice(0, 1);
+            setRankingUnrankedData(false);
+          }
+          const choice1NewItemObject = newItems[choice1.id];
+          const unrankedDataArray = getUnrankedDataArray(
+            choice1NewItemObject,
+            newRankedItemArray
+          );
+          if (unrankedDataArray.length !== 0) {
+            unrankedDataArray.forEach((id) =>
+              unrankedDataQueueRegularVariable.unshift([
+                id,
+                choice1NewItemObject,
+              ])
+            );
+          }
+          if (unrankedDataQueueRegularVariable.length !== 0)
+            handleUnrankedData(newRankedItemArray);
+          else checkIfComplete(newRankedItemArray);
         } else {
           let nextUp;
           if (correspondingSide.length === 1) nextUp = correspondingSide[0];
@@ -352,6 +568,9 @@ function App() {
           items={items}
           rankedItems={rankedItems}
         />
+      )}
+      {appStatus === "ranked" && (
+        <Ranked items={items} rankedItems={rankedItems} />
       )}
     </>
   );
