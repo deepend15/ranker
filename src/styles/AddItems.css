@@ -2,7 +2,7 @@
   width: 100%;
   display: grid;
   justify-items: center;
-  gap: 25px;
+  gap: 35px;
 }
 
 h2 {
@@ -24,9 +24,10 @@ h2 {
 
 .new-item-div,
 .display-items-div {
-  border: 1px solid black;
+  border: 1px solid rgb(0, 70, 0);
   padding: 15px 15px 20px 15px;
   background-color: white;
+  box-shadow: 2px 2px 6px lightgray;
 }
 
 .new-item-div {
@@ -124,6 +125,8 @@ button:focus-visible {
   font-weight: 500;
   bottom: 0%;
   transform: translateY(calc(100% + 20px));
+  text-align: center;
+  line-height: 1.5;
 }
 
 .display-items-div {
@@ -282,70 +285,6 @@ h3 {
 .close-dialog-btn:active {
   background-color: red;
 }
-
-.ranking-main-div {
-  display: grid;
-  gap: 30px;
-  justify-items: center;
-  width: 100%;
-}
-
-.ranking-main-div > h2 {
-  font-size: 2.2rem;
-}
-
-.ranking-items-div {
-  display: flex;
-  gap: 60px;
-  width: 100%;
-  justify-content: center;
-}
-
-.ranking-items-div > button {
-  flex-basis: 450px;
-  height: 300px;
-  font-size: 2.4rem;
-  line-height: 1.8;
-  padding: 20px;
-  background-color: #e6fded;
-  color: black;
-  border-radius: 35px;
-  border: 2px solid darkgreen;
-  transition: transform 300ms;
-  word-spacing: 5px;
-  letter-spacing: 1px;
-  font-weight: 500;
-  /* animation: pop-up 1500ms; */
-}
-
-.ranking-items-div > button:hover {
-  cursor: pointer;
-  transform: scale(1.08);
-  box-shadow: 0 0 8px rgb(147, 147, 147);
-}
-
-.ranking-items-div > button:active {
-  transform: scale(0.9);
-  /* animation: fade-out 1500ms; */
-}
-
-/* @keyframes pop-up {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-} */
-
-/* @keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-} */
 
 @media (max-width: 950px) {
   .new-item-div {

@@ -1,0 +1,63 @@
+.ranking-main-div {
+  display: grid;
+  gap: 30px;
+  justify-items: center;
+  width: 100%;
+}
+
+.ranking-main-div > h2 {
+  font-size: 2.2rem;
+}
+
+.ranking-items-div {
+  display: flex;
+  gap: 60px;
+  width: 100%;
+  justify-content: center;
+}
+
+.ranking-items-div > button {
+  flex-basis: 450px;
+  height: 300px;
+  font-size: 2.4rem;
+  line-height: 1.8;
+  padding: 20px;
+  background-color: #e6fded;
+  color: black;
+  border-radius: 35px;
+  border: 2px solid darkgreen;
+  transition: transform 300ms;
+  word-spacing: 5px;
+  letter-spacing: 1px;
+  font-weight: 500;
+  /* animation: pop-up 1500ms; */
+}
+
+.ranking-items-div > button:hover {
+  cursor: pointer;
+  transform: scale(1.08);
+  box-shadow: 0 0 8px rgb(147, 147, 147);
+}
+
+.ranking-items-div > button:active {
+  transform: scale(0.9);
+  /* animation: fade-out 1500ms; */
+}
+
+/* @keyframes pop-up {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+} */
+
+/* @keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+} */

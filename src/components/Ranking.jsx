@@ -1,3 +1,5 @@
+import "../styles/Ranking.css";
+
 export default function Ranking({
   choice1,
   choice2,

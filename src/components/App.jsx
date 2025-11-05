@@ -1,4 +1,5 @@
 import "../styles/App.css";
+import rankJunkieIcon from "../../images/rank-junkie-icon-larger.png";
 import { useState, useRef, useEffect } from "react";
 import { initialItems } from "./ItemList";
 import AddItems from "./AddItems";
@@ -535,9 +536,47 @@ function App() {
     }
   }
 
+  function handleRerankClick() {
+    const newItems = { ...items };
+    itemObjects.forEach((itemObject) => {
+      delete itemObject.beats;
+      delete itemObject.loses;
+      newItems[itemObject.id] = itemObject;
+    });
+    setItems(newItems);
+    const newRankedItems = [];
+    setRankedItems(newRankedItems);
+    setAppStatus("ranking");
+    generateRandomItemPair(newItems, newRankedItems);
+  }
+
+  function handleRankNewItemsClick() {
+    const newItems = {};
+    setItems(newItems);
+    const newRankedItems = [];
+    setRankedItems(newRankedItems);
+    setAppStatus("add-items");
+  }
+
+  function handleEditListClick() {
+    const newItems = { ...items };
+    itemObjects.forEach((itemObject) => {
+      delete itemObject.beats;
+      delete itemObject.loses;
+      newItems[itemObject.id] = itemObject;
+    });
+    setItems(newItems);
+    const newRankedItems = [];
+    setRankedItems(newRankedItems);
+    setAppStatus("add-items");
+  }
+
   return (
     <>
-      <h1>Ranker</h1>
+      <h1>
+        <img src={rankJunkieIcon} alt="The Rank Junkie icon." />
+        <span>Rank Junkie</span>
+      </h1>
       {appStatus === "add-items" && (
         <AddItems
           itemObjects={itemObjects}
@@ -570,7 +609,13 @@ function App() {
         />
       )}
       {appStatus === "ranked" && (
-        <Ranked items={items} rankedItems={rankedItems} />
+        <Ranked
+          items={items}
+          rankedItems={rankedItems}
+          handleRerankClick={handleRerankClick}
+          handleRankNewItemsClick={handleRankNewItemsClick}
+          handleEditListClick={handleEditListClick}
+        />
       )}
     </>
   );
