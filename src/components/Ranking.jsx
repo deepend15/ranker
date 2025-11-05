@@ -14,14 +14,14 @@ export default function Ranking({
           data-custom-id={choice1.id}
           onClick={handleChoiceButtonClick}
         >
-          {choice1.value}
+          {choice1.value.toUpperCase()}
         </button>
         <button
           // key={Math.random()}
           data-custom-id={choice2.id}
           onClick={handleChoiceButtonClick}
         >
-          {choice2.value}
+          {choice2.value.toUpperCase()}
         </button>
       </div>
     </div>
