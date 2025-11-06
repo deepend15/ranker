@@ -29,7 +29,7 @@ function App() {
   const [unrankedDataQueueStateVariable, setUnrankedDataQueueStateVariable] =
     useState([]);
   let unrankedDataQueueRegularVariable = [];
-  const [classThing, setClassThing] = useState(1);
+  const [classTracker, setClassTracker] = useState(1);
 
   function handleNewItemChange(e) {
     if (!itemInputValid) setItemInputValid(true);
@@ -204,7 +204,7 @@ function App() {
   }
 
   function handleChoiceButtonClick(e) {
-    classThing === 1 ? setClassThing(2) : setClassThing(1);
+    classTracker === 1 ? setClassTracker(2) : setClassTracker(1);
 
     // identify winner & loser
     const winnerId = e.target.dataset.customId;
@@ -609,7 +609,7 @@ function App() {
           handleChoiceButtonClick={handleChoiceButtonClick}
           items={items}
           rankedItems={rankedItems}
-          classThing={classThing}
+          classTracker={classTracker}
         />
       )}
       {appStatus === "ranked" && (

@@ -30,15 +30,22 @@
   word-spacing: 5px;
   letter-spacing: 1px;
   font-weight: 500;
-  /* animation: fade-in 1000ms; */
 }
 
-.class-one {
-  animation: fade-in-one 1000ms;
+.choice1-class1 {
+  animation: fade-in-one 1500ms;
 }
 
-.class-two {
-  animation: fade-in-two 1000ms;
+.choice1-class2 {
+  animation: fade-in-two 1500ms;
+}
+
+.choice2-class1 {
+  animation: fade-in-one 1500ms 150ms backwards;
+}
+
+.choice2-class2 {
+  animation: fade-in-two 1500ms 150ms backwards;
 }
 
 .ranking-items-div > button:hover {
