@@ -6,7 +6,11 @@ export default function Ranking({
   handleChoiceButtonClick,
   items,
   rankedItems,
+  classThing,
 }) {
+  let className;
+  classThing === 1 ? (className = "class-one") : (className = "class-two");
+
   return (
     <div className="ranking-main-div">
       <h2>Pick your favorite:</h2>
@@ -15,6 +19,7 @@ export default function Ranking({
           // key={Math.random()}
           data-custom-id={choice1.id}
           onClick={handleChoiceButtonClick}
+          className={className}
         >
           {choice1.value.toUpperCase()}
         </button>
@@ -22,6 +27,7 @@ export default function Ranking({
           // key={Math.random()}
           data-custom-id={choice2.id}
           onClick={handleChoiceButtonClick}
+          className={className}
         >
           {choice2.value.toUpperCase()}
         </button>

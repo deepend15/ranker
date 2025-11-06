@@ -12,7 +12,7 @@ export default function Ranked({
     const listItemStyle = {
       fontSize: "2rem",
       lineHeight: 1.5,
-      animation: `fade-in 1500ms ${delayTime}ms backwards`,
+      animation: `fade-in-one 1500ms ${delayTime}ms backwards`,
     };
 
     return (

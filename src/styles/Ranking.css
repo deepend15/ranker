@@ -33,6 +33,14 @@
   /* animation: fade-in 1000ms; */
 }
 
+.class-one {
+  animation: fade-in-one 1000ms;
+}
+
+.class-two {
+  animation: fade-in-two 1000ms;
+}
+
 .ranking-items-div > button:hover {
   cursor: pointer;
   transform: scale(1.08);
@@ -41,4 +49,22 @@
 
 .ranking-items-div > button:active {
   transform: scale(0.9);
+}
+
+@keyframes fade-in-one {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-two {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
