@@ -28,6 +28,7 @@ h2 {
   padding: 15px 15px 20px 15px;
   background-color: white;
   box-shadow: 2px 2px 6px lightgray;
+  border-radius: 8px;
 }
 
 .new-item-div {
