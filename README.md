@@ -1,3 +1,5 @@
 A ranking system that allows users to submit any number of custom items and rank the items against each other in 1 v. 1 pairs, eventually producing a final ranked list of all the items. The logic works to achieve this in the least number of rankings possible, so that there are no redundant or unnecessary rankings. 
 
 This app was built with React, and is fully responsive. All displayed icons were custom-designed specifically for this app.
+
+Link: https://rank-junkie.netlify.app/
