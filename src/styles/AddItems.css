@@ -220,7 +220,7 @@ h3 {
 }
 
 .edit-dialog-btns > button {
-  padding: 5px 30px;
+  padding: 5px 25px;
   border-radius: 25px;
   font-weight: 500;
 }
@@ -230,10 +230,6 @@ h3 {
   background-color: darkred;
   color: rgb(240, 240, 240);
   border: 2px outset silver;
-}
-
-.edit-dialog-btns > button:first-child > span {
-  width: min-content;
 }
 
 .edit-dialog-btns > button:last-child {

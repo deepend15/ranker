@@ -41,6 +41,12 @@
   text-align: center;
 }
 
+.ranked-results-div > ul > li {
+  width: 100%;
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
 .ranked-buttons-div {
   padding-top: 80px;
   display: grid;
@@ -119,8 +125,14 @@
     gap: 25px;
   }
 
+  .ranked-results-div {
+    flex-basis: 400px;
+    min-height: 450px;
+  }
+
   .ranked-buttons-div {
     gap: 25px;
+    height: 450px;
   }
 
   .ranked-buttons-div > button {
@@ -153,6 +165,7 @@
   .ranked-results-div {
     grid-row: 2 / 3;
     width: 80%;
+    min-height: 300px;
   }
 
   .rank-new-items-btn {

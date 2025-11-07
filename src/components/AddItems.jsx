@@ -93,7 +93,8 @@ export default function AddItems({
         </p>
         <div className="edit-dialog-btns">
           <button onClick={handleDeleteItemClick}>
-            <span>delete item</span>
+            <span>delete</span>
+            <span>item</span>
           </button>
           <button onClick={handleDialogOKClick}>OK</button>
         </div>
