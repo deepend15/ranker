@@ -53,3 +53,9 @@ input {
   outline: 1px solid rgb(90, 90, 90);
   caret-color: black;
 }
+
+@media (hover: hover) {
+  button:hover {
+    cursor: pointer;
+  }
+}

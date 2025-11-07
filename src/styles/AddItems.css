@@ -79,12 +79,6 @@ input:focus-visible {
   font-weight: 500;
 }
 
-.add-item-btn:hover {
-  background-color: #95eab0;
-  border-color: rgb(131, 213, 131);
-  cursor: pointer;
-}
-
 .add-item-btn:active {
   border-style: inset;
 }
@@ -104,12 +98,6 @@ input:focus-visible {
   font-size: 1.9rem;
   border: 2px outset rgb(218, 189, 189);
   color: rgb(90, 31, 1);
-}
-
-.rank-button:hover {
-  cursor: pointer;
-  background-color: rgb(240, 198, 147);
-  border-color: rgb(182, 159, 159);
 }
 
 .rank-button:active {
@@ -154,15 +142,7 @@ h3 {
   border-radius: 8px;
   text-align: left;
   line-height: 1.5;
-  will-change: transform;
-  transition: transform 300ms;
   color: black;
-}
-
-.single-item-btn:hover {
-  cursor: pointer;
-  transform: scale(1.15);
-  box-shadow: 0 0 6px rgb(223, 223, 223);
 }
 
 #edit-item-dialog {
@@ -238,22 +218,9 @@ h3 {
   border: 2px outset rgb(192, 234, 192);
 }
 
-.edit-dialog-btns > button:hover {
-  cursor: pointer;
-}
-
-.edit-dialog-btns > button:first-child:hover {
-  background-color: rgb(206, 0, 0);
-}
-
 .edit-dialog-btns > button:first-child:active {
   border-style: inset;
   background-color: darkred;
-}
-
-.edit-dialog-btns > button:last-child:hover {
-  background-color: #95eab0;
-  border-color: rgb(131, 213, 131);
 }
 
 .edit-dialog-btns > button:last-child:active {
@@ -273,18 +240,52 @@ h3 {
   transform: translate(50%, -50%);
   border-radius: 6px;
   font-size: 1.6rem;
-  will-change: transform;
-  transition: transform 300ms;
-}
-
-.close-dialog-btn:hover {
-  cursor: pointer;
-  background-color: rgb(235, 0, 0);
-  transform: translate(50%, -50%) scale(1.25);
 }
 
 .close-dialog-btn:active {
   background-color: red;
+}
+
+/* styles on devices that support hover (aka non-mobile devices) */
+@media (hover: hover) {
+  .add-item-btn:hover {
+    background-color: #95eab0;
+    border-color: rgb(131, 213, 131);
+  }
+
+  .rank-button:hover {
+    background-color: rgb(240, 198, 147);
+    border-color: rgb(182, 159, 159);
+  }
+
+  .single-item-btn {
+    will-change: transform;
+    transition: transform 300ms;
+  }
+
+  .single-item-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 6px rgb(223, 223, 223);
+  }
+
+  .edit-dialog-btns > button:first-child:hover {
+    background-color: rgb(206, 0, 0);
+  }
+
+  .edit-dialog-btns > button:last-child:hover {
+    background-color: #95eab0;
+    border-color: rgb(131, 213, 131);
+  }
+
+  .close-dialog-btn {
+    will-change: transform;
+    transition: transform 300ms;
+  }
+
+  .close-dialog-btn:hover {
+    background-color: rgb(235, 0, 0);
+    transform: translate(50%, -50%) scale(1.25);
+  }
 }
 
 @media (max-width: 950px) {
@@ -414,7 +415,7 @@ h3 {
   }
 
   #edit-item-dialog {
-    width: max(80%, 300px)
+    width: max(80%, 300px);
   }
 
   #edit-item-dialog > p {

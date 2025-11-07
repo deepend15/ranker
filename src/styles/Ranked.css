@@ -86,27 +86,25 @@
   animation: drop-in 800ms 900ms backwards;
 }
 
-.ranked-buttons-div > button:hover {
-  cursor: pointer;
-}
-
-.rank-new-items-btn:hover {
-  background-color: #95eab0;
-  border-color: rgb(131, 213, 131);
-}
-
-.rerank-btn:hover {
-  background-color: rgb(240, 198, 147);
-  border-color: rgb(182, 159, 159);
-}
-
-.edit-list-btn:hover {
-  background-color: rgb(250, 250, 162);
-  border-color: rgb(218, 217, 117);
-}
-
 .ranked-buttons-div > button:active {
   border-style: inset;
+}
+
+@media (hover: hover) {
+  .rank-new-items-btn:hover {
+    background-color: #95eab0;
+    border-color: rgb(131, 213, 131);
+  }
+
+  .rerank-btn:hover {
+    background-color: rgb(240, 198, 147);
+    border-color: rgb(182, 159, 159);
+  }
+
+  .edit-list-btn:hover {
+    background-color: rgb(250, 250, 162);
+    border-color: rgb(218, 217, 117);
+  }
 }
 
 @keyframes drop-in {
