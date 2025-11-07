@@ -58,7 +58,7 @@ export default function AddItems({
           </div>
         </div>
         <div className="display-items-div">
-          <h3>Item List (click to edit/delete):</h3>
+          <h3>Item List (click to edit / delete):</h3>
           <div className="item-btn-div">
             {itemObjects.length > 0 &&
               itemObjects.map((itemObject) => {
