@@ -204,6 +204,8 @@ function App() {
   }
 
   function handleChoiceButtonClick(e) {
+    window.scrollTo(0, 0);
+
     classTracker === 1 ? setClassTracker(2) : setClassTracker(1);
 
     // identify winner & loser
@@ -540,6 +542,7 @@ function App() {
   }
 
   function handleRerankClick() {
+    window.scrollTo(0, 0);
     const newItems = { ...items };
     itemObjects.forEach((itemObject) => {
       delete itemObject.beats;
@@ -554,6 +557,7 @@ function App() {
   }
 
   function handleRankNewItemsClick() {
+    window.scrollTo(0, 0);
     const newItems = {};
     setItems(newItems);
     const newRankedItems = [];
@@ -562,6 +566,7 @@ function App() {
   }
 
   function handleEditListClick() {
+    window.scrollTo(0, 0);
     const newItems = { ...items };
     itemObjects.forEach((itemObject) => {
       delete itemObject.beats;
