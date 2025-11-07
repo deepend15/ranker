@@ -156,6 +156,7 @@ h3 {
   line-height: 1.5;
   will-change: transform;
   transition: transform 300ms;
+  color: black;
 }
 
 .single-item-btn:hover {
