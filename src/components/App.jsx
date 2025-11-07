@@ -81,7 +81,7 @@ function App() {
   }, [showDialog]);
 
   function handleSingleItemClick(e) {
-    const targetedId = e.target.dataset.customId;
+    const targetedId = e.currentTarget.dataset.customId;
     const targetedItemArray = itemObjects.filter(
       (itemObject) => itemObject.id === targetedId
     );
@@ -207,7 +207,7 @@ function App() {
     classTracker === 1 ? setClassTracker(2) : setClassTracker(1);
 
     // identify winner & loser
-    const winnerId = e.target.dataset.customId;
+    const winnerId = e.currentTarget.dataset.customId;
     let winnerItem;
     winnerId === choice1.id ? (winnerItem = choice1) : (winnerItem = choice2);
     let loserItem;
