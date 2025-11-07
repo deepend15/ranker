@@ -113,3 +113,92 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 725px) {
+  .ranked-main-div {
+    gap: 25px;
+  }
+
+  .ranked-buttons-div {
+    gap: 25px;
+  }
+
+  .ranked-buttons-div > button {
+    padding: 18px 25px;
+    border-radius: 20px;
+  }
+}
+
+@media (max-width: 570px) {
+  .ranked-main-div {
+    display: grid;
+    grid-template-rows: repeat(2, max-content);
+    justify-items: center;
+  }
+
+  .ranked-buttons-div {
+    grid-row: 1 / 2;
+    height: auto;
+    padding-top: 0;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .ranked-buttons-div > button {
+    padding: 10px 15px;
+  }
+
+  .ranked-results-div {
+    grid-row: 2 / 3;
+    width: 80%;
+  }
+
+  .rank-new-items-btn {
+    animation-delay: 900ms;
+  }
+
+  .rerank-btn {
+    animation-delay: 1100ms;
+  }
+
+  .edit-list-btn {
+    animation-delay: 1300ms;
+  }
+}
+
+@media (max-width: 523px) {
+  .rank-new-items-btn {
+    animation-delay: 1100ms;
+  }
+
+  .rerank-btn {
+    animation-delay: 1300ms;
+  }
+
+  .edit-list-btn {
+    animation-delay: 900ms;
+  }
+
+  .ranked-results-div h2 > img {
+    width: 30px;
+  }
+}
+
+@media (max-width: 377px) {
+  .rank-new-items-btn {
+    animation-delay: 1300ms;
+  }
+
+  .rerank-btn {
+    animation-delay: 1100ms;
+  }
+
+  .edit-list-btn {
+    animation-delay: 900ms;
+  }
+  .ranked-results-div {
+    width: 90%;
+  }
+}
