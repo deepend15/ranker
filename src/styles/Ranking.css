@@ -17,6 +17,7 @@
 }
 
 .ranking-items-div > button {
+  display: grid;
   flex-basis: 450px;
   height: 300px;
   font-size: 2.4rem;
@@ -30,6 +31,15 @@
   word-spacing: 5px;
   letter-spacing: 1px;
   font-weight: 500;
+  align-items: center;
+}
+
+.ranking-items-div > button > p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .choice1-class1 {
@@ -73,5 +83,40 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1036px) {
+  .ranking-items-div {
+    gap: 40px;
+  }
+
+  .ranking-items-div > button {
+    word-spacing: 3px;
+  }
+}
+
+@media (max-width: 750px) {
+  .ranking-items-div > button {
+    height: 250px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 750px) {
+  .ranking-items-div {
+    display: grid;
+    grid-template-columns: 75%;
+  }
+}
+
+@media (max-width: 410px) {
+  .ranking-items-div {
+    gap: 25px;
+  }
+
+  .ranking-items-div > button {
+    height: 200px;
+    font-size: 2.2rem;
   }
 }

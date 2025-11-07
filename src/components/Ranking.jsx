@@ -28,14 +28,14 @@ export default function Ranking({
           onClick={handleChoiceButtonClick}
           className={classNameChoice1}
         >
-          {choice1.value.toUpperCase()}
+          <p>{choice1.value.toUpperCase()}</p>
         </button>
         <button
           data-custom-id={choice2.id}
           onClick={handleChoiceButtonClick}
           className={classNameChoice2}
         >
-          {choice2.value.toUpperCase()}
+          <p>{choice2.value.toUpperCase()}</p>
         </button>
       </div>
     </div>
