@@ -1,7 +1,6 @@
 import "../styles/App.css";
 import rankJunkieIcon from "../../images/rank-junkie-icon-larger.png";
 import { useState, useRef, useEffect } from "react";
-import { initialItems } from "./ItemList";
 import AddItems from "./AddItems";
 import Ranking from "./Ranking";
 import Ranked from "./Ranked";
@@ -9,7 +8,7 @@ import Ranked from "./Ranked";
 function App() {
   const [appStatus, setAppStatus] = useState("add-items");
   const [newItemValue, setNewItemValue] = useState("");
-  const [items, setItems] = useState(initialItems);
+  const [items, setItems] = useState({});
   const itemObjects = Object.values(items);
   const inputRef = useRef(null);
   const [itemInputValid, setItemInputValid] = useState(true);
