@@ -59,16 +59,16 @@
   animation: fade-in-two 1500ms 150ms backwards;
 }
 
-.ranking-items-div > button:active {
-  transform: scale(0.9);
-}
-
 @media (hover: hover) {
   .ranking-items-div > button:hover {
     cursor: pointer;
     transform: scale(1.08);
     box-shadow: 0 0 8px rgb(147, 147, 147);
   }
+}
+
+.ranking-items-div > button:active {
+  transform: scale(0.9);
 }
 
 @keyframes fade-in-one {
